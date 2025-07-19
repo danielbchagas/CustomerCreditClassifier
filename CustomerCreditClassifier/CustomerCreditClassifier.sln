@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Api", "CustomerCreditClassifier.Api\CustomerCreditClassifier.Api.csproj", "{A9616F4A-D670-4B97-A0AF-3CA7048F5F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Infrastructure.MassTransit", "CustomerCreditClassifier.Infrastructure.MassTransit\CustomerCreditClassifier.Infrastructure.MassTransit.csproj", "{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Domain", "CustomerCreditClassifier.Domain\CustomerCreditClassifier.Domain.csproj", "{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Application", "CustomerCreditClassifier.Application\CustomerCreditClassifier.Application.csproj", "{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{55ABCC1C-75CD-40B0-BAA8-72D7653658B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC02F516-0FA4-4FBA-9B23-4D274496CBD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Application.Tests", "CustomerCreditClassifier.Application.Tests\CustomerCreditClassifier.Application.Tests.csproj", "{871A574D-1E5A-41BD-827A-615BB5D9C6D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCreditClassifier.Infrastructure.MassTransit.Tests", "CustomerCreditClassifier.Infrastructure.MassTransit.Tests\CustomerCreditClassifier.Infrastructure.MassTransit.Tests.csproj", "{09EE4520-DCAF-40DC-B8BF-5868F5E303CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9616F4A-D670-4B97-A0AF-3CA7048F5F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9616F4A-D670-4B97-A0AF-3CA7048F5F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9616F4A-D670-4B97-A0AF-3CA7048F5F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9616F4A-D670-4B97-A0AF-3CA7048F5F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{871A574D-1E5A-41BD-827A-615BB5D9C6D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{871A574D-1E5A-41BD-827A-615BB5D9C6D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{871A574D-1E5A-41BD-827A-615BB5D9C6D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{871A574D-1E5A-41BD-827A-615BB5D9C6D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09EE4520-DCAF-40DC-B8BF-5868F5E303CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09EE4520-DCAF-40DC-B8BF-5868F5E303CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09EE4520-DCAF-40DC-B8BF-5868F5E303CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09EE4520-DCAF-40DC-B8BF-5868F5E303CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9616F4A-D670-4B97-A0AF-3CA7048F5F90} = {55ABCC1C-75CD-40B0-BAA8-72D7653658B7}
+		{3A348403-4DE9-4A6F-8AC2-A0B92CEF1B8C} = {55ABCC1C-75CD-40B0-BAA8-72D7653658B7}
+		{AC072776-4CD7-4F2E-BD9A-B7A8BB26376F} = {55ABCC1C-75CD-40B0-BAA8-72D7653658B7}
+		{A0E8F6FD-489F-4E57-9765-7D6AEA0AD550} = {55ABCC1C-75CD-40B0-BAA8-72D7653658B7}
+		{871A574D-1E5A-41BD-827A-615BB5D9C6D1} = {CC02F516-0FA4-4FBA-9B23-4D274496CBD2}
+		{09EE4520-DCAF-40DC-B8BF-5868F5E303CD} = {CC02F516-0FA4-4FBA-9B23-4D274496CBD2}
+	EndGlobalSection
+EndGlobal
