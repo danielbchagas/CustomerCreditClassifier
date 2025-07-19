@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerCreditClassifier.Infrastructure.MassTransit.StateMachines;
 
-public class AclStateMachine : MassTransitStateMachine<SagaStateBase>
+public class AclStateMachine : MassTransitStateMachine<SagaState>
 {
     private readonly ILogger<AclStateMachine> _logger;
     

@@ -30,7 +30,7 @@ public static class MassTransitExtensions
         {
             x.SetKebabCaseEndpointNameFormatter();
 
-            x.AddSagaStateMachine<PreviousServiceStateMachine, SagaStateBase>()
+            x.AddSagaStateMachine<PreviousServiceStateMachine, SagaState>()
                 .EntityFrameworkRepository(r =>
                 {
                     r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
@@ -48,7 +48,7 @@ public static class MassTransitExtensions
                     r.UsePostgres();
                 });
             
-            x.AddSagaStateMachine<AclStateMachine, SagaStateBase>()
+            x.AddSagaStateMachine<AclStateMachine, SagaState>()
                 .EntityFrameworkRepository(r =>
                 {
                     r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
@@ -66,7 +66,7 @@ public static class MassTransitExtensions
                     r.UsePostgres();
                 });
             
-            x.AddSagaStateMachine<NextServiceStateMachine, SagaStateBase>()
+            x.AddSagaStateMachine<NextServiceStateMachine, SagaState>()
                 .EntityFrameworkRepository(r =>
                 {
                     r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
@@ -91,9 +91,9 @@ public static class MassTransitExtensions
             
             x.AddRider(rider =>
             {
-                rider.AddSagaStateMachine<PreviousServiceStateMachine, SagaStateBase>();
-                rider.AddSagaStateMachine<AclStateMachine, SagaStateBase>();
-                rider.AddSagaStateMachine<NextServiceStateMachine, SagaStateBase>();
+                rider.AddSagaStateMachine<PreviousServiceStateMachine, SagaState>();
+                rider.AddSagaStateMachine<AclStateMachine, SagaState>();
+                rider.AddSagaStateMachine<NextServiceStateMachine, SagaState>();
                 
                 rider.UsingKafka((context, k) =>
                 {
@@ -113,17 +113,17 @@ public static class MassTransitExtensions
     {
         k.TopicEndpoint<PreviousServiceRequested>("previous-customer-credit-classification-requested", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<PreviousServiceSucceeded>("previous-customer-credit-classification-succeeded", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<PreviousServiceFailed>("previous-customer-credit-classification-failed", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
     }
 
@@ -131,17 +131,17 @@ public static class MassTransitExtensions
     {
         k.TopicEndpoint<AclRequested>("acl-customer-credit-classification-requested", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<AclSucceeded>("acl-customer-credit-classification-succeeded", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<AclFailed>("acl-customer-credit-classification-failed", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
     }
     
@@ -149,17 +149,17 @@ public static class MassTransitExtensions
     {
         k.TopicEndpoint<NextServiceRequested>("next-customer-credit-classification-requested", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<NextServiceSucceeded>("next-customer-credit-classification-succeeded", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
                     
         k.TopicEndpoint<NextServiceFailed>("next-customer-credit-classification-failed", "classifier-state-machine-group", e =>
         {
-            e.ConfigureSaga<SagaStateBase>(context);
+            e.ConfigureSaga<SagaState>(context);
         });
     }
 }

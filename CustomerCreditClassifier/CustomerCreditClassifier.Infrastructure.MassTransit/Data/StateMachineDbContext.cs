@@ -11,10 +11,10 @@ public class StateMachineDbContext : SagaDbContext
     {
     }
     
-    public DbSet<SagaStateBase> States { get; set; }
+    public DbSet<SagaState> States { get; set; }
 
     protected override IEnumerable<ISagaClassMap> Configurations
     {
-        get { yield return new SagaEventMap(); }
+        get { yield return new SagaStateMap(); }
     }
 }
