@@ -1,6 +1,6 @@
 ﻿namespace CustomerCreditClassifier.Domain.Events.PreviousService;
 
-public class PreviousServiceRequested : SagaStateBase
+public class PreviousServiceRequested : SagaEvent
 {
     
 }

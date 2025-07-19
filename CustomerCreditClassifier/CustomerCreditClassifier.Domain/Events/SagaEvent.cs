@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Nodes;
+using System.Text.Json.Nodes;
 using MassTransit;
 
 namespace CustomerCreditClassifier.Domain.Events;
 
-public abstract class SagaStateBase : SagaStateMachineInstance
+public class SagaEvent : ISaga
 {
     public Guid CorrelationId { get; set; }
     public string? CurrentState { get; set; }

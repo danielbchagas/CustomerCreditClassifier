@@ -1,4 +1,5 @@
-﻿using CustomerCreditClassifier.Domain.Events;
+﻿using System.Reflection;
+using CustomerCreditClassifier.Domain.Events;
 using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
 using CustomerCreditClassifier.Domain.Events.NextService;
 using CustomerCreditClassifier.Domain.Events.PreviousService;
@@ -17,8 +18,13 @@ public static class MassTransitExtensions
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<SagaDbContext>(options =>
-            options.UseSqlServer(connectionString));
+        services.AddDbContext<SagaDbContext, StateMachineDbContext>(opt =>
+        {
+            opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), options =>
+            {
+                options.EnableRetryOnFailure();
+            });
+        });
 
         services.AddMassTransit(x =>
         {
@@ -27,39 +33,71 @@ public static class MassTransitExtensions
             x.AddSagaStateMachine<PreviousServiceStateMachine, SagaStateBase>()
                 .EntityFrameworkRepository(r =>
                 {
-                    r.AddDbContext<DbContext, SagaDbContext>();
-                    r.UseSqlServer();
-                    r.LockStatementProvider = new SqlServerLockStatementProvider();
+                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                    
+                    r.AddDbContext<SagaDbContext, StateMachineDbContext>((provider,builder) =>
+                    {
+                        builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), options =>
+                        {
+                            options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                            options.MigrationsHistoryTable($"__{nameof(StateMachineDbContext)}");
+                            options.EnableRetryOnFailure();
+                        });
+                    });
+                    
+                    r.UsePostgres();
                 });
             
             x.AddSagaStateMachine<AclStateMachine, SagaStateBase>()
                 .EntityFrameworkRepository(r =>
                 {
-                    r.AddDbContext<DbContext, SagaDbContext>();
-                    r.UseSqlServer();
-                    r.LockStatementProvider = new SqlServerLockStatementProvider();
+                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                    
+                    r.AddDbContext<SagaDbContext, StateMachineDbContext>((provider,builder) =>
+                    {
+                        builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), options =>
+                        {
+                            options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                            options.MigrationsHistoryTable($"__{nameof(StateMachineDbContext)}");
+                            options.EnableRetryOnFailure();
+                        });
+                    });
+                    
+                    r.UsePostgres();
                 });
             
             x.AddSagaStateMachine<NextServiceStateMachine, SagaStateBase>()
                 .EntityFrameworkRepository(r =>
                 {
-                    r.AddDbContext<DbContext, SagaDbContext>();
-                    r.UseSqlServer();
-                    r.LockStatementProvider = new SqlServerLockStatementProvider();
+                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+                    
+                    r.AddDbContext<SagaDbContext, StateMachineDbContext>((provider,builder) =>
+                    {
+                        builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), options =>
+                        {
+                            options.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                            options.MigrationsHistoryTable($"__{nameof(StateMachineDbContext)}");
+                            options.EnableRetryOnFailure();
+                        });
+                    });
+                    
+                    r.UsePostgres();
                 });
-            
-            x.AddEntityFrameworkOutbox<SagaDbContext>(o =>
-            {
-                o.QueryDelay = TimeSpan.FromSeconds(10);
-                o.UseSqlServer();
-                o.UseBusOutbox();
-            });
 
+            x.UsingInMemory((context, cfg) =>
+            {
+                cfg.ConfigureEndpoints(context);
+            });
+            
             x.AddRider(rider =>
             {
+                rider.AddSagaStateMachine<PreviousServiceStateMachine, SagaStateBase>();
+                rider.AddSagaStateMachine<AclStateMachine, SagaStateBase>();
+                rider.AddSagaStateMachine<NextServiceStateMachine, SagaStateBase>();
+                
                 rider.UsingKafka((context, k) =>
                 {
-                    k.Host(configuration.GetConnectionString("Kafka"));
+                    k.Host(configuration.GetSection("Kafka:BootstrapServers").Value);
 
                     PreviousServiceTopicEndpoint(k, context);
                     AclTopicEndpoint(k, context);

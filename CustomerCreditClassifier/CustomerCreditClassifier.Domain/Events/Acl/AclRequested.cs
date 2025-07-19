@@ -1,6 +1,6 @@
 ﻿namespace CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
 
-public class AclRequested : SagaStateBase
+public class AclRequested : SagaEvent
 {
     
 }
