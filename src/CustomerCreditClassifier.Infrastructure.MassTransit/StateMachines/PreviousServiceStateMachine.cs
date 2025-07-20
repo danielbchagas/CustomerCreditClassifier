@@ -1,4 +1,4 @@
-﻿using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
+﻿using CustomerCreditClassifier.Domain.Events.Acl;
 using CustomerCreditClassifier.Domain.Events.PreviousService;
 using MassTransit;
 using Microsoft.Extensions.Logging;

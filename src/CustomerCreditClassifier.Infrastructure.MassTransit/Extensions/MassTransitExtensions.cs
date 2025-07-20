@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
+using CustomerCreditClassifier.Domain.Events.Acl;
 using CustomerCreditClassifier.Domain.Events.NextService;
 using CustomerCreditClassifier.Domain.Events.PreviousService;
 using CustomerCreditClassifier.Infrastructure.MassTransit.Data;

@@ -1,4 +1,4 @@
-﻿namespace CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
+﻿namespace CustomerCreditClassifier.Domain.Events.Acl;
 
 public class AclSucceeded : SagaEvent
 {
