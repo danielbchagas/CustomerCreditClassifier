@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using CustomerCreditClassifier.Domain.Events;
 using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
 using CustomerCreditClassifier.Domain.Events.NextService;
 using CustomerCreditClassifier.Domain.Events.PreviousService;
+using CustomerCreditClassifier.Infrastructure.MassTransit.Data;
 using CustomerCreditClassifier.Infrastructure.MassTransit.StateMachines;
 using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;

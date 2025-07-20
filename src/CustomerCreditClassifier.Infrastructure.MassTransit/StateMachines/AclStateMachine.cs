@@ -1,5 +1,4 @@
-﻿using CustomerCreditClassifier.Domain.Events;
-using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
+﻿using CustomerCreditClassifier.Domain.Events.AntiCorruptionLayer;
 using CustomerCreditClassifier.Domain.Events.NextService;
 using MassTransit;
 using Microsoft.Extensions.Logging;

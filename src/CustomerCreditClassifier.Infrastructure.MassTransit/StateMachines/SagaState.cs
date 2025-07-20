@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using MassTransit;
 
-namespace CustomerCreditClassifier.Domain.Events;
+namespace CustomerCreditClassifier.Infrastructure.MassTransit.StateMachines;
 
 public class SagaState : SagaStateMachineInstance
 {

@@ -1,4 +1,4 @@
-using CustomerCreditClassifier.Domain.Events;
+using CustomerCreditClassifier.Infrastructure.MassTransit.StateMachines;
 using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;

@@ -1,9 +1,9 @@
-﻿using CustomerCreditClassifier.Domain.Events;
-using CustomerCreditClassifier.Infrastructure.MassTransit.Mappings;
+﻿using CustomerCreditClassifier.Infrastructure.MassTransit.Mappings;
+using CustomerCreditClassifier.Infrastructure.MassTransit.StateMachines;
 using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomerCreditClassifier.Infrastructure.MassTransit;
+namespace CustomerCreditClassifier.Infrastructure.MassTransit.Data;
 
 public class StateMachineDbContext : SagaDbContext
 {
