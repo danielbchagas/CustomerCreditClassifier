@@ -7,6 +7,7 @@ using Moq;
 using System.Text.Json.Nodes;
 using FluentAssertions;
 using Xunit;
+using Bogus;
 
 namespace CustomerCreditClassifier.Infrastructure.MassTransit.Tests.StateMachines;
 
@@ -40,7 +41,13 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
     public async Task Should_Transition_To_Requested_On_RequestStarted()
     {
         var correlationId = Guid.NewGuid();
-        var payload = new JsonObject { ["test"] = "value" };
+        var payload = new JsonObject
+        {
+            ["FirstName"] = new Faker().Person.FirstName,
+            ["LastName"] = new Faker().Person.LastName,
+            ["Email"] = new Faker().Person.Email,
+            ["Phone"] = new Faker().Person.Phone
+        };
 
         await _harness.Bus.Publish(new PreviousServiceRequested
         {
@@ -56,7 +63,13 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
     public async Task Should_Transition_To_Succeeded_On_RequestSucceeded()
     {
         var correlationId = Guid.NewGuid();
-        var payload = new JsonObject { ["test"] = "value" };
+        var payload = new JsonObject
+        {
+            ["FirstName"] = new Faker().Person.FirstName,
+            ["LastName"] = new Faker().Person.LastName,
+            ["Email"] = new Faker().Person.Email,
+            ["Phone"] = new Faker().Person.Phone
+        };
 
         await _harness.Bus.Publish(new PreviousServiceRequested
         {
@@ -78,7 +91,13 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
     public async Task Should_Transition_To_Failed_On_RequestFailed()
     {
         var correlationId = Guid.NewGuid();
-        var payload = new JsonObject { ["test"] = "value" };
+        var payload = new JsonObject
+        {
+            ["FirstName"] = new Faker().Person.FirstName,
+            ["LastName"] = new Faker().Person.LastName,
+            ["Email"] = new Faker().Person.Email,
+            ["Phone"] = new Faker().Person.Phone
+        };
         var errorMessage = "Some error";
 
         await _harness.Bus.Publish(new PreviousServiceRequested
