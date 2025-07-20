@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace CustomerCreditClassifier.Domain.Events;
 
-public abstract class SagaState : SagaStateMachineInstance
+public class SagaState : SagaStateMachineInstance
 {
     public Guid CorrelationId { get; set; }
     public string? CurrentState { get; set; }
