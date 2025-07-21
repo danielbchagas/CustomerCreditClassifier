@@ -1,5 +1,7 @@
 # CustomerCreditClassifier
 
+### Este projeto é uma Prova de Conceito (PoC) para demonstrar um fluxo de análise de crédito para um banco utilizando uma arquitetura orientada a eventos com MassTransit e Kafka.
+
 ## Tecnologias Utilizadas
 
 - .NET 8
