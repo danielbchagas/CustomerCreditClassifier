@@ -55,7 +55,7 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
             Payload = payload
         });
 
-        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.Requested.Name, TimeSpan.FromSeconds(2));
+        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.PreviousServiceRequested.Name, TimeSpan.FromSeconds(2));
         Assert.NotNull(instance);
     }
 
@@ -83,7 +83,7 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
             Payload = payload
         });
 
-        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.Succeeded.Name, TimeSpan.FromSeconds(2));
+        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.PreviousServiceSucceeded.Name, TimeSpan.FromSeconds(2));
         Assert.NotNull(instance);
     }
 
@@ -113,7 +113,7 @@ public class PreviousServiceStateMachineTests : IAsyncLifetime
             ErrorMessage = errorMessage
         });
 
-        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.Failed.Name, TimeSpan.FromSeconds(2));
+        var instance = await ((IQuerySagaRepository<SagaState>)_repository).ShouldContainSaga(x => x.CorrelationId == correlationId && x.CurrentState == _stateMachine.PreviousServiceFailed.Name, TimeSpan.FromSeconds(2));
         Assert.NotNull(instance);
     }
 }

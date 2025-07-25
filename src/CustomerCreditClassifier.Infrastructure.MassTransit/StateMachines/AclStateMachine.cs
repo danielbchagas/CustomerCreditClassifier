@@ -9,13 +9,13 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
 {
     private readonly ILogger<AclStateMachine> _logger;
     
-    public State Requested { get; private set; }
-    public State Succeeded { get; private set; }
-    public State Failed { get; private set; }
+    public State AclRequested { get; private set; }
+    public State AclSucceeded { get; private set; }
+    public State AclFailed { get; private set; }
     
-    public Event<AclRequested> RequestStarted { get; private set; }
-    public Event<AclSucceeded> RequestSucceeded { get; private set; }
-    public Event<AclFailed> RequestFailed { get; private set; }
+    public Event<AclRequested> AclRequestStarted { get; private set; }
+    public Event<AclSucceeded> AclRequestSucceeded { get; private set; }
+    public Event<AclFailed> AclRequestFailed { get; private set; }
     
     public AclStateMachine(ILogger<AclStateMachine> logger)
     {
@@ -24,18 +24,18 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
         InstanceState(x => x.CurrentState);
 
         Initially(
-            When(RequestStarted)
+            When(AclRequestStarted)
                 .Then(context =>
                 {
                     context.Saga.Payload = context.Message.Payload;
                     context.Saga.UpdatedAt = DateTime.UtcNow;
                     _logger.LogInformation($"ACL Process started for customer: {context.Saga.CorrelationId}");
                 })
-                .TransitionTo(Requested)
+                .TransitionTo(AclRequested)
         );
 
-        During(Requested,
-            When(RequestSucceeded)
+        During(AclRequested,
+            When(AclRequestSucceeded)
                 .Then(context =>
                 {
                     context.Saga.Payload = context.Message.Payload;
@@ -48,11 +48,11 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
                     Payload = context.Message.Payload,
                     UpdatedAt = DateTime.UtcNow
                 })
-                .TransitionTo(Succeeded)
+                .TransitionTo(AclSucceeded)
         );
 
-        During(Requested,
-            When(RequestFailed)
+        During(AclRequested,
+            When(AclRequestFailed)
                 .Then(context =>
                 {
                     context.Saga.Payload = context.Message.Payload;
@@ -60,7 +60,7 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
                     context.Saga.UpdatedAt = DateTime.UtcNow;
                     _logger.LogInformation($"ACL Process failed: {context.Saga.CorrelationId}");
                 })
-                .TransitionTo(Failed)
+                .TransitionTo(AclFailed)
         );
 
         SetCompletedWhenFinalized();
