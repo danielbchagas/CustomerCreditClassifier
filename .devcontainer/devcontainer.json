@@ -1,0 +1,40 @@
+{
+  "name": "Customer Credit Classifier",
+
+  // Aponta para o seu arquivo docker-compose.
+  "dockerComposeFile": [
+    "../Files/docker-compose.yaml"
+  ],
+
+  // Define qual serviço do docker-compose será o seu ambiente de desenvolvimento.
+  // **Atenção:** Altere 'api' para o nome do serviço principal da sua aplicação
+  // definido no seu docker-compose.yaml.
+  "service": "api",
+
+  // Define a pasta que será aberta no VS Code.
+  "workspaceFolder": "/workspace",
+
+  // Personalizações e extensões para o ambiente.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Kit de desenvolvimento C# essencial
+        "ms-dotnettools.csdevkit",
+        // Suporte para Docker e Docker Compose
+        "ms-azuretools.vscode-docker",
+        // Para executar os arquivos .http
+        "humao.rest-client"
+      ]
+    }
+  },
+
+  // Encaminha portas do contêiner para a sua máquina local.
+  // **Atenção:** Ajuste as portas conforme a necessidade da sua API e de outros serviços.
+  "forwardPorts": [8080, 8081, 5672, 15672],
+
+  // Comando executado após a criação do codespace para restaurar as dependências .NET.
+  "postCreateCommand": "dotnet restore CustomerCreditClassifier.sln",
+
+  // Garante que os contêineres do compose sejam parados ao fechar o codespace.
+  "shutdownAction": "stopCompose"
+}
