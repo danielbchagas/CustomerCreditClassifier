@@ -42,11 +42,16 @@ public class PreviousServiceStateMachine : MassTransitStateMachine<SagaState>
                     context.Saga.UpdatedAt = DateTime.UtcNow;
                     _logger.LogInformation($"Previous Service process succeeded for customer: {context.Saga.CorrelationId}");
                 })
-                .Publish(context => new AclRequested
+                .PublishAsync(async context =>
                 {
-                    CorrelationId = context.Saga.CorrelationId,
-                    Payload = context.Message.Payload,
-                    UpdatedAt = DateTime.UtcNow
+                    await context.Init<AclRequested>(new
+                    {
+                        CorrelationId = context.Saga.CorrelationId,
+                        Payload = context.Message.Payload,
+                        UpdatedAt = DateTime.UtcNow
+                    });
+                    
+                    return context;
                 })
                 .TransitionTo(Succeeded)
         );
