@@ -3,7 +3,7 @@
 
   // Aponta para o seu arquivo docker-compose.
   "dockerComposeFile": [
-    "../Files/docker-compose.yaml"
+    "../docker-compose.yaml"
   ],
 
   // Define qual serviço do docker-compose será o seu ambiente de desenvolvimento.
