@@ -27,8 +27,13 @@ public class PreviousServiceStateMachine : MassTransitStateMachine<SagaState>
             When(PreviousServiceRequestStarted)
                 .Then(context =>
                 {
+                    context.Saga.CorrelationId = context.Message.CorrelationId;
+                    context.Saga.CurrentState = context.Message.CurrentState;
+                    context.Saga.Version = context.Message.Version;
                     context.Saga.Payload = context.Message.Payload;
                     context.Saga.UpdatedAt = DateTime.UtcNow;
+                    context.Saga.ErrorMessage = null;
+                    
                     _logger.LogInformation($"Previous Service process started for customer: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(PreviousServiceRequested)
@@ -38,15 +43,18 @@ public class PreviousServiceStateMachine : MassTransitStateMachine<SagaState>
             When(PreviousServiceRequestSucceeded)
                 .Then(context =>
                 {
-                    context.Saga.Payload = context.Message.Payload;
                     context.Saga.UpdatedAt = DateTime.UtcNow;
+                    
                     _logger.LogInformation($"Previous Service process succeeded for customer: {context.Saga.CorrelationId}");
                 })
                 .Publish(context => new AclRequested
                 {
                     CorrelationId = context.Saga.CorrelationId,
+                    CurrentState = context.Saga.CurrentState,
+                    Version = context.Saga.Version,
                     Payload = context.Message.Payload,
-                    UpdatedAt = DateTime.UtcNow
+                    UpdatedAt = DateTime.UtcNow,
+                    ErrorMessage = null
                 })
                 .TransitionTo(PreviousServiceSucceeded)
         );
@@ -55,9 +63,8 @@ public class PreviousServiceStateMachine : MassTransitStateMachine<SagaState>
             When(PreviousServiceRequestFailed)
                 .Then(context =>
                 {
-                    context.Saga.Payload = context.Message.Payload;
                     context.Saga.ErrorMessage = context.Message.ErrorMessage;
-                    context.Saga.UpdatedAt = DateTime.UtcNow;
+                    
                     _logger.LogInformation($"Previous Service process failed: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(PreviousServiceFailed)

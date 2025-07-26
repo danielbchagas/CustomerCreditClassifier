@@ -12,7 +12,9 @@ public class SagaStateMap : SagaClassMap<SagaState>
     {
         entity.HasKey(x => x.CorrelationId);
         entity.Property(x => x.CurrentState).HasColumnType("VARCHAR").HasMaxLength(64);
+        entity.Property(x => x.Version).HasColumnType("INT").IsRequired();
         entity.Property(x => x.Payload).HasColumnType("VARCHAR").HasMaxLength(1024).HasJsonConversion();
-        entity.Property(x => x.CreatedAt).HasColumnType("DATE");
+        entity.Property(x => x.UpdatedAt).HasColumnType("DATE");
+        entity.Property(x => x.ErrorMessage).HasColumnType("VARCHAR").HasMaxLength(512).IsRequired(false);
     }
 }

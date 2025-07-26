@@ -27,8 +27,13 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
             When(AclRequestStarted)
                 .Then(context =>
                 {
+                    context.Saga.CorrelationId = context.Message.CorrelationId;
+                    context.Saga.CurrentState = context.Message.CurrentState;
+                    context.Saga.Version = context.Message.Version;
                     context.Saga.Payload = context.Message.Payload;
                     context.Saga.UpdatedAt = DateTime.UtcNow;
+                    context.Saga.ErrorMessage = null;
+                    
                     _logger.LogInformation($"ACL Process started for customer: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(AclRequested)
@@ -39,14 +44,17 @@ public class AclStateMachine : MassTransitStateMachine<SagaState>
                 .Then(context =>
                 {
                     context.Saga.Payload = context.Message.Payload;
-                    context.Saga.UpdatedAt = DateTime.UtcNow;
+                    
                     _logger.LogInformation($"ACL Process succeeded for customer: {context.Saga.CorrelationId}");
                 })
                 .Publish(context => new NextServiceRequested
                 {
                     CorrelationId = context.Saga.CorrelationId,
+                    CurrentState = context.Saga.CurrentState,
+                    Version = context.Saga.Version,
                     Payload = context.Message.Payload,
-                    UpdatedAt = DateTime.UtcNow
+                    UpdatedAt = DateTime.UtcNow,
+                    ErrorMessage = null
                 })
                 .TransitionTo(AclSucceeded)
         );

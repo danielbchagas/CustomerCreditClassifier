@@ -9,7 +9,6 @@ public class SagaState : SagaStateMachineInstance
     public string? CurrentState { get; set; }
     public int Version { get; set; }
     public required JsonObject Payload { get; set; }
-    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; }
     public string? ErrorMessage { get; set; }
 }

@@ -26,8 +26,13 @@ public class NextServiceStateMachine : MassTransitStateMachine<SagaState>
             When(NextServiceRequestStarted)
                 .Then(context =>
                 {
+                    context.Saga.CorrelationId = context.Message.CorrelationId;
+                    context.Saga.CurrentState = context.Message.CurrentState;
+                    context.Saga.Version = context.Message.Version;
                     context.Saga.Payload = context.Message.Payload;
                     context.Saga.UpdatedAt = DateTime.UtcNow;
+                    context.Saga.ErrorMessage = null;
+                    
                     _logger.LogInformation($"Next Service process started for customer: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(NextServiceRequested)
@@ -38,7 +43,7 @@ public class NextServiceStateMachine : MassTransitStateMachine<SagaState>
                 .Then(context =>
                 {
                     context.Saga.Payload = context.Message.Payload;
-                    context.Saga.UpdatedAt = DateTime.UtcNow;
+                    
                     _logger.LogInformation($"Next Service process succeeded for customer: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(NextServiceSucceeded)
@@ -48,9 +53,8 @@ public class NextServiceStateMachine : MassTransitStateMachine<SagaState>
             When(NextServiceRequestFailed)
                 .Then(context =>
                 {
-                    context.Saga.Payload = context.Message.Payload;
                     context.Saga.ErrorMessage = context.Message.ErrorMessage;
-                    context.Saga.UpdatedAt = DateTime.UtcNow;
+                    
                     _logger.LogInformation($"Next Service process failed: {context.Saga.CorrelationId}");
                 })
                 .TransitionTo(NextServiceFailed)
